@@ -22,12 +22,14 @@ const Register = () => {
                   placeholder="firstname"
                   className="border p-3 h-[46px] w-[160px]"
                   id="firstname"
+                  onChange={getData}
                 />
                 <input
                   type="text"
                   placeholder="lastname"
                   className="border p-3 h-[46px] w-[160px]"
                   id="lastname"
+                  onChange={getData}
                 />
               </div>
               <input
@@ -36,6 +38,7 @@ const Register = () => {
                 className="border p-3 h-[46px]"
                 id="email"
                 required
+                onChange={getData}
               />
              <div className="flex items-center relative">
              <input
@@ -44,6 +47,7 @@ const Register = () => {
                 className="border w-[320px] p-3 h-[46px]"
                 id="password"
                 required
+                onChange={getData}
               />
               <div className="absolute right-[3%]">
               <MdOutlineRemoveRedEye className="text-slate-400" />
@@ -54,6 +58,7 @@ const Register = () => {
                 placeholder="Confirm password"
                 className="border p-3 h-[46px] "
                 id="password"
+                onChange={getData}
               />
 
               <button className="bg-blue-600 text-white h-[40px] rounded-full hover:opacity-95 disabled:opacity-80 mt-[19px]">
