@@ -1,10 +1,63 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link, useNavigate } from "react-router-dom";
 import { FaFacebook } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
+import { RxCross2 } from "react-icons/rx";
 
 const SignIn = () => {
+  const navigate = useNavigate();
+  const [passhow, setPassShow] = useState(false);
+  const [inputData, setInputData] = useState({
+    email:"",
+    password:"",
+  })
+  const [data, setData] = useState([]);
+  
+
+  const getData = (e) =>{
+    const {value,name} = e.target;
+
+    setInputData(()=>{
+      return{
+        ...inputData,[name]: value
+      }
+    })
+  }
+
+  const submitHandler = (e) =>{
+    e.preventDefault();
+
+    const getuserArr = localStorage.getItem("userinfo");
+    const {email,password} = inputData;
+    if(email===""){
+      alert("Enter your Email");
+    }else if(!email.includes("@")){
+      alert("Enter valid email");
+    }else if(password===""){
+      alert("Enter your password");
+    }else if(password.length < 6){
+      alert("Password should be at least 6 characters long.")
+    }else{
+      
+      if(getuserArr && getuserArr.length){
+        const userdata = JSON.parse(getuserArr);
+        console.log(userdata);
+        const userlogin = userdata.filter((elem,k)=>{
+            return  elem.email == email && elem.password == password;
+        });
+        if(userlogin.length === 0){
+          alert("Invalid Details");
+        }else{
+          alert("User login successfully");
+          localStorage.setItem("user_login",JSON.stringify(userlogin));
+          navigate('/')
+        }
+      }
+    }
+  }
+
+  
   return (
     <div className="flex items-center justify-center">
     <div className="w-[736px] h-[513px] bg-slate-100 rounded-lg ">
@@ -20,21 +73,23 @@ const SignIn = () => {
               type="email"
               placeholder="email"
               className="border p-3 h-[46px]"
-              id="email"
+              name="email"
+              onChange={getData}
             />
            <div className="flex items-center relative">
            <input
-              type="password"
+              type={!passhow ? "password" : "text"}
               placeholder="password"
               className="border w-[320px] p-3 h-[46px]"
-              id="password"
+              name="password"
+              onChange={getData}
             />
-            <div className="absolute right-[3%]">
-            <MdOutlineRemoveRedEye className="text-slate-400" />
+            <div onClick={() => setPassShow(!passhow)} className="absolute right-[3%]">
+            {!passhow ? <MdOutlineRemoveRedEye className="text-slate-400" /> : <RxCross2 />}
             </div>
            </div>
 
-            <button className="bg-blue-500 text-white h-[40px] rounded-full hover:opacity-95 disabled:opacity-80 mt-[19px]">
+            <button onClick={submitHandler} className="bg-blue-500 text-white h-[40px] rounded-full hover:opacity-95 disabled:opacity-80 mt-[19px]">
               Sign In
             </button>
             <div className="flex flex-col gap-[8px] mt-[16px]">

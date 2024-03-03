@@ -5,6 +5,7 @@ import Home from './components/Home';
 import SignIn from './components/SignIn';
 import Register from './components/Register';
 
+
 const App = () => {
   return (
     <BrowserRouter>

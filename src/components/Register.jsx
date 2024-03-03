@@ -1,10 +1,70 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaFacebook } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
+import { RxCross2 } from "react-icons/rx";
+import {auth} from '../Firebase'
+import {GoogleAuthProvider,signInWithPopup } from 'firebase/auth'
 
 const Register = () => {
+  const navigate = useNavigate();
+  const [passhow, setPassShow] = useState(false);
+  const [inputData, setInputData] = useState({
+    firstname:"",
+    lastname:"",
+    email:"",
+    password:"",
+    cpassword:""
+  })
+  const [data, setData] = useState([]);
+  
+
+  const getData = (e) =>{
+    const {value,name} = e.target;
+
+    setInputData(()=>{
+      return{
+        ...inputData,[name]: value
+      }
+    })
+  }
+
+  const submitHandler = (e) =>{
+    e.preventDefault();
+
+    const {firstname,lastname,email,password,cpassword} = inputData;
+    if(firstname === ""){
+      alert("Enter your firstname")
+    }else if(lastname === ""){
+      alert("Enter your lastname")
+    }else if(email===""){
+      alert("Enter your Email");
+    }else if(!email.includes("@")){
+      alert("Enter valid email");
+    }else if(password===""){
+      alert("Enter your password");
+    }else if(password.length < 6){
+      alert("Password should be at least 6 characters long.")
+    }else if(password !== cpassword){
+      alert("Password and Confirm Password must be the same.")
+      return;
+    }else{
+      navigate('/sign-in')
+      localStorage.setItem("userinfo",JSON.stringify([...data,inputData]));
+    }
+  }
+
+  const googleClick = async () =>{
+    try {
+      const provider = new GoogleAuthProvider();
+      const result = await signInWithPopup(auth,provider);
+      navigate('/');
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <div className="flex items-center justify-center">
       <div className="w-[736px] h-[513px] bg-slate-100 rounded-lg ">
@@ -21,14 +81,14 @@ const Register = () => {
                   type="text"
                   placeholder="firstname"
                   className="border p-3 h-[46px] w-[160px]"
-                  id="firstname"
+                  name="firstname"
                   onChange={getData}
                 />
                 <input
                   type="text"
                   placeholder="lastname"
                   className="border p-3 h-[46px] w-[160px]"
-                  id="lastname"
+                  name="lastname"
                   onChange={getData}
                 />
               </div>
@@ -36,39 +96,40 @@ const Register = () => {
                 type="email"
                 placeholder="email"
                 className="border p-3 h-[46px]"
-                id="email"
+                name="email"
                 required
                 onChange={getData}
               />
              <div className="flex items-center relative">
              <input
-                type="password"
+                 type={!passhow ? "password" : "text"}
                 placeholder="password"
                 className="border w-[320px] p-3 h-[46px]"
-                id="password"
+                name="password"
                 required
                 onChange={getData}
               />
-              <div className="absolute right-[3%]">
-              <MdOutlineRemoveRedEye className="text-slate-400" />
+              <div onClick={() => setPassShow(!passhow)} className="absolute right-[3%]">
+              
+              {!passhow ? <MdOutlineRemoveRedEye className="text-slate-400" /> : <RxCross2 />}
               </div>
              </div>
               <input
                 type="password"
                 placeholder="Confirm password"
                 className="border p-3 h-[46px] "
-                id="password"
+                name="cpassword"
                 onChange={getData}
               />
 
-              <button className="bg-blue-600 text-white h-[40px] rounded-full hover:opacity-95 disabled:opacity-80 mt-[19px]">
+              <button onClick={submitHandler} className="bg-blue-600 text-white h-[40px] rounded-full hover:opacity-95 disabled:opacity-80 mt-[19px]">
                 Create Account
               </button>
               <div className="flex flex-col gap-[8px] mt-[16px]">
                 <button className="border flex items-center justify-center border-slate-300 gap-[3px] h-[38px]">
                   <FaFacebook className="text-blue-600" /> Sign up with Facebook
                 </button>
-                <button className="border border-slate-300 flex items-center justify-center gap-[3px] h-[38px]">
+                <button onClick={googleClick} className="border border-slate-300 flex items-center justify-center gap-[3px] h-[38px]">
                   {" "}
                   <FcGoogle />
                   Sign up with Google

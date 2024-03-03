@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -23,7 +23,7 @@ const Header = () => {
             className="bg-transparent focus:outline-none w-[242px] sm:w-64"
           />
         </form>
-        <div className="flex items-center gap-2  hover:underline">
+        <div className="flex items-center gap-2 hover:underline">
           <p>Create account.</p>
           <Link to={"/register"}>
             <span className="text-blue-700"> It’s free!</span>
