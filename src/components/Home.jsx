@@ -12,6 +12,7 @@ import { MdEdit } from "react-icons/md";
 import { RiErrorWarningLine } from "react-icons/ri";
 import { IoCloseSharp } from "react-icons/io5";
 
+
 const Home = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const openModal = () => {
@@ -61,10 +62,10 @@ const Home = () => {
           <button className="border-2 flex items-center gap-2 border-zinc-200 bg-zinc-300  text-black p-2 rounded-sm hover:opacity-95  hover:border-blue-500 hover:border-2 hover:shadow-md disabled:opacity-80">
             Write a Post <FaCaretDown />
           </button>
-          <button className="border-2 flex items-center gap-2 border-blue-500 bg-blue-700 text-white p-2 rounded-sm   hover:opacity-95 hover:border-blue-500 hover:border-2 hover:shadow-md disabled:opacity-80">
+          <Link to={'/register'} className="border-2 flex items-center gap-2 border-blue-500 bg-blue-700 text-white p-2 rounded-sm   hover:opacity-95 hover:border-blue-500 hover:border-2 hover:shadow-md disabled:opacity-80">
             <IoMdPeople />
             Join Group
-          </button>
+          </Link>
         </div>
       </div>
       <div className="container mx-auto w-full h-[2px] bg-zinc-200"></div>
