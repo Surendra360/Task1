@@ -41,8 +41,8 @@ const Home = () => {
       <div className="container flex justify-between items-center max-w-6xl mx-auto p-3">
         <ul className="flex items-center gap-[20px]">
           <Link to="/">
-            <li className="hidden sm:inline text-[16px] text-slate-700 ">
-              All Posts(32)
+            <li className="hidden sm:inline text-[16px] text-slate-700">
+              All Posts(4)
             </li>
           </Link>
           <Link to="/">
@@ -62,7 +62,7 @@ const Home = () => {
           <button className="border-2 flex items-center gap-2 border-zinc-200 bg-zinc-300  text-black p-2 rounded-sm hover:opacity-95  hover:border-blue-500 hover:border-2 hover:shadow-md disabled:opacity-80">
             Write a Post <FaCaretDown />
           </button>
-          <Link to={'/register'} className="border-2 flex items-center gap-2 border-blue-500 bg-blue-700 text-white p-2 rounded-sm   hover:opacity-95 hover:border-blue-500 hover:border-2 hover:shadow-md disabled:opacity-80">
+          <Link to={'/register'} className="border-2 flex items-center gap-2 border-green-500 bg-green-700 text-white p-2 rounded-sm   hover:opacity-95 hover:border-green-300 hover:border-2 hover:shadow-md disabled:opacity-80">
             <IoMdPeople />
             Join Group
           </Link>
